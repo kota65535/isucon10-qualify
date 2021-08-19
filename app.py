@@ -8,6 +8,8 @@ from werkzeug.exceptions import BadRequest, NotFound
 import mysql.connector
 from sqlalchemy.pool import QueuePool
 from humps import camelize
+from aws_xray_sdk.core import xray_recorder
+from aws_xray_sdk.ext.flask.middleware import XRayMiddleware
 
 LIMIT = 20
 NAZOTTE_LIMIT = 50
@@ -16,6 +18,9 @@ chair_search_condition = json.load(open("../fixture/chair_condition.json", "r"))
 estate_search_condition = json.load(open("../fixture/estate_condition.json", "r"))
 
 app = flask.Flask(__name__)
+
+xray_recorder.configure(service='isuumo')
+XRayMiddleware(app, xray_recorder)
 
 mysql_connection_env = {
     "host": getenv("MYSQL_HOST", "127.0.0.1"),
