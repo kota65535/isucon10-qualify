@@ -1,15 +1,20 @@
-from os import getenv, path
+import csv
 import json
 import subprocess
 from io import StringIO
-import csv
+from os import getenv, path
+
 import flask
-from werkzeug.exceptions import BadRequest, NotFound
+import mysql
 import mysql.connector
-from sqlalchemy.pool import QueuePool
-from humps import camelize
-from aws_xray_sdk.core import xray_recorder
+from aws_xray_sdk.core import xray_recorder, patch
 from aws_xray_sdk.ext.flask.middleware import XRayMiddleware
+from humps import camelize
+from sqlalchemy.pool import QueuePool
+from werkzeug.exceptions import BadRequest, NotFound
+
+libraries = (['mysql', 'botocore'])
+patch(libraries)
 
 LIMIT = 20
 NAZOTTE_LIMIT = 50
