@@ -19,7 +19,7 @@ estate_search_condition = json.load(open("../fixture/estate_condition.json", "r"
 
 app = flask.Flask(__name__)
 
-xray_recorder.configure(service='isuumo', daemon_address='xray')
+xray_recorder.configure(service='isuumo', daemon_address='xray:2000')
 XRayMiddleware(app, xray_recorder)
 
 mysql_connection_env = {
