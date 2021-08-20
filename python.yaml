@@ -15,9 +15,6 @@ services:
       MYSQL_PASSWORD: isucon
     ports:
       - "3306:3306"
-    command:
-      - --general-log
-      - --slow-query-log
 
   api-server:
     build: ../python
