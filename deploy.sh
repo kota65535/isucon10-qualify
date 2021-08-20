@@ -6,4 +6,6 @@ cp python.yaml ../docker-compose/
 
 cd ../docker-compose
 docker kill $(docker ps -q -a)
+docker rm $(docker ps -q -a)
 docker-compose -f python.yaml up --build --force-recreate
+
